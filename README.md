@@ -6,7 +6,7 @@ A full-stack, state-of-the-art enterprise resource planner that generates sustai
 
 This application follows a modern decoupled architecture:
 
-1. **Frontend**: Built with React and Vite. UI uses bespoke, vanilla CSS focusing on a premium aesthetics (glassmorphism, subtle animations, neon-glow palettes). It features a central form that accepts inputs: Business Type, Budget, Priority, and Location.
+1. **Frontend**: Built with React and Vite. UI uses bespoke, Tailwind CSS focusing on a premium aesthetics (glassmorphism, subtle animations, neon-glow palettes). It features a central form that accepts inputs: Business Type, Budget, Priority, and Location.
 2. **Backend**: A Node.js and Express RESTful API server.
 3. **Database**: MongoDB (via Mongoose) integration for persisting prompts, input variables, and the AI outputs.
 4. **AI Integration Layer**: The `services/ai_service.js` connects to the OpenRouter API (utilizing models like `nvidia/nemotron-3-super-120b-a12b:free`) to generate sustainable product mixes. Strict instructions force the AI to return outputs formatted as JSON.
