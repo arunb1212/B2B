@@ -22,6 +22,10 @@ const proposalSchema = new mongoose.Schema({
     type: Object,
     required: true
   },
+  model: {
+    type: String,
+    required: true
+  },
   prompt: {
     type: String,
     required: true

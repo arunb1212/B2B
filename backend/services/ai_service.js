@@ -1,6 +1,7 @@
 export const generateAiProposal = async (businessData) => {
   const { business_type, budget, priority, location } = businessData;
   const apiKey = process.env.OPENROUTER_API_KEY;
+  const model = process.env.OPENROUTER_MODEL;
 
   if (!apiKey) {
     throw new Error("OPENROUTER_API_KEY environment variable is not defined.");
@@ -42,7 +43,7 @@ Return ONLY raw JSON matching this exact structure (no markdown tags, no explana
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "model": model,
       "messages": [
         {
           "role": "system",
@@ -65,7 +66,6 @@ Return ONLY raw JSON matching this exact structure (no markdown tags, no explana
   const result = await response.json();
   const assistantMessage = result.choices[0].message;
   
-  // The assistant might return wrapped in markdown code blocks like ```json ... ```
   let content = assistantMessage.content.trim();
   if (content.startsWith("\`\`\`json")) {
     content = content.replace(/^\`\`\`json/i, "").replace(/\`\`\`$/i, "").trim();
@@ -75,7 +75,7 @@ Return ONLY raw JSON matching this exact structure (no markdown tags, no explana
 
   try {
     const ai_output = JSON.parse(content);
-    return { ai_output, prompt };
+    return { ai_output, prompt,model };
   } catch (error) {
     throw new Error("Failed to parse AI response as JSON. AI returned: " + content);
   }
